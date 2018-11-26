@@ -15,8 +15,7 @@ import {
   MatListModule,
   MatToolbarModule,
   MatSortModule,
-  MatTableModule,
-  MatCheckboxModule
+  MatTableModule
 } from '@angular/material';
 
 
@@ -42,7 +41,6 @@ import {
     MatToolbarModule,
     MatSortModule,
     MatTableModule,
-    MatCheckboxModule,
     SortingModule
   ],
   providers: [],
