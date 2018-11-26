@@ -1,0 +1,20 @@
+body{
+  margin: 0;
+  overflow-y: hidden;
+}
+
+.dashboard-card{
+  width: 85vw;
+  margin-top: 3%;
+  height: 79vh;
+  border-radius: 10px !important;
+}
+
+.mat-sidenav-content{
+  overflow-y: hidden !important;
+}
+
+.center-horiz{
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,154 @@
+<div id="pages-container" [ngClass]="selectedTheme">
+  
+  <mat-sidenav-container>
+    <mat-toolbar color="primary" class="dashboard-toolbar" *ngIf="menuPosition == 'start'">
+        <div style="flex: 33% 1;">
+          <button mat-icon-button (click)="homeSideNavOpen = !homeSideNavOpen">
+            <mat-icon aria-label="home">home</mat-icon>
+          </button>
+          <span style="margin-left: 10px;">{{currentState}}</span>
+        </div>
+        <div style="flex: 33% 1; display: flex; justify-content: center">Dashboard</div>
+        <div style="flex: 33% 1;">
+          <button mat-icon-button (click)="menuSideNavOpen = !menuSideNavOpen" style="float:right;">
+            <mat-icon aria-label="menu">menu</mat-icon>
+          </button>
+        </div>
+    </mat-toolbar>
+
+    <mat-toolbar color="primary" class="dashboard-toolbar" *ngIf="menuPosition == 'end'">
+      <div style="flex: 33% 1;">
+        <button mat-icon-button (click)="menuSideNavOpen = !menuSideNavOpen" style="float:left;">
+          <mat-icon aria-label="menu">menu</mat-icon>
+        </button>
+      </div>
+      <div style="flex: 33% 1; display: flex; justify-content: center">Dashboard</div>
+      <div style="flex: 33% 1;">
+        <button mat-icon-button (click)="homeSideNavOpen = !homeSideNavOpen" style="float:right;">
+          <mat-icon aria-label="home">home</mat-icon>
+        </button>
+        <span style="margin-right: 10px; float:right;">{{currentState}}</span>
+      </div>
+    </mat-toolbar>
+
+    <mat-sidenav mode="push" opened="{{homeSideNavOpen}}" (closedStart)="homeSideNavOpen=false" style="width:25%;"
+                 [(position)]="menuPosition">
+      <mat-toolbar color="primary">
+        Navigation
+      </mat-toolbar>
+      <mat-list>
+        <div *ngFor="let state of states | sortBy: 'order'">
+          <mat-list-item class="nav-item" style="cursor: pointer;" uiSref="{{state.name}}" uiSrefActive="active"
+                         (click)="homeSideNavOpen=false;">
+            <button mat-icon-button>
+              <mat-icon aria-label="home">{{state.icon}}</mat-icon>
+            </button>
+            <div>{{state.displayName}}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-list>
+
+      <mat-accordion *ngFor="let expansionPanel of expansionPanels">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-icon-button>
+                <mat-icon aria-label="home">{{expansionPanel.icon}}</mat-icon>
+              </button>
+              <div style="color: rgba(0, 0, 0, 0.87); font-size: 16px;line-height: 38px; font-weight: 400;">
+                {{expansionPanel.displayName}}
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list *ngIf="expansionPanel.children && expansionPanel.children.length>0">
+            <div *ngFor="let expansionPanelChild of expansionPanel.children">
+              <mat-list-item style="cursor: pointer;" uiSref="{{expansionPanelChild.name}}" uiSrefActive="active"
+                             (click)="homeSideNavOpen=false;">
+                <button mat-icon-button>
+                  <mat-icon aria-label="home">{{expansionPanelChild.icon}}</mat-icon>
+                </button>
+                <div>{{expansionPanelChild.displayName}}</div>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </div>
+          </mat-list>
+
+          <mat-accordion *ngIf="expansionPanel.expansionPanelsAccordionGroups && expansionPanel.expansionPanelsAccordionGroups.length>0">
+            <mat-expansion-panel
+              *ngFor="let expansionPanelsAccordionGroup of expansionPanel.expansionPanelsAccordionGroups">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <button mat-icon-button>
+                    <mat-icon aria-label="home">{{expansionPanelsAccordionGroup.icon}}</mat-icon>
+                  </button>
+                  <div style="color: rgba(0, 0, 0, 0.87); font-size: 16px;line-height: 38px; font-weight: 400;">
+                    {{expansionPanelsAccordionGroup.title}}
+                  </div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-list>
+                <div *ngFor="let expansionPanelChild of expansionPanelsAccordionGroup.states">
+                  <mat-list-item style="cursor: pointer;" uiSref="{{expansionPanelChild.name}}" uiSrefActive="active"
+                                 (click)="homeSideNavOpen=false;">
+                    <button mat-icon-button>
+                      <mat-icon aria-label="home">{{expansionPanelChild.icon}}</mat-icon>
+                    </button>
+                    <div>{{expansionPanelChild.displayName}}</div>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                </div>
+              </mat-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-sidenav>
+
+    <mat-sidenav class="settings" align="end" mode="push" opened="{{menuSideNavOpen}}"
+                 (closedStart)="menuSideNavOpen=false" [(position)]="settingsPosition">
+      <mat-toolbar color="primary" style="display: flex;justify-content: space-between;">
+        Settings
+
+        <div style="cursor: pointer;font-size: 14px;" (click)="authenticationService.logout()">
+          Logout
+          <button mat-icon-button>
+            <mat-icon aria-label="logout">exit_to_app</mat-icon>
+          </button>
+        </div>
+      </mat-toolbar>
+
+      <div style="display: flex; flex-direction: column; justify-content: space-between; height: 92%;">
+        <mat-list id="settings-list">
+          <mat-list-item>
+            <div class="settings-item">
+              <button mat-icon-button style="flex: 1% 1;">
+                <mat-icon aria-label="format_paint">format_paint</mat-icon>
+              </button>
+              <div style="flex: 30% 1;font-size: 12px;">Theme</div>
+              <mat-select placeholder="Theme" style="flex: 50% 1;" [(ngModel)]="selectedTheme"
+                          (selectionChange)="themeChanged()">
+                <mat-option *ngFor="let theme of themes" [value]="theme.value">
+                  {{ theme.label }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </mat-list-item>
+          <mat-list-item (click)="menuSideNavOpen = !menuSideNavOpen; flipLayout()" style="cursor: pointer;">
+            <mat-icon mat-list-icon style="margin: 0 10px;">flip</mat-icon>
+            <h4 mat-line>Flip Layout</h4>
+          </mat-list-item>
+        </mat-list>
+        <div style="width:100%; display:flex; justify-content: center">
+          {{userService.username}}
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <div id="page-view-container">
+      <ui-view></ui-view>
+    </div>
+  </mat-sidenav-container>
+</div>

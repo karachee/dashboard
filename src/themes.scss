@@ -1,0 +1,59 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+@import 'themes/dark-theme.scss';
+@import 'themes/light-theme.scss';
+@import 'themes/indigo-pink-theme';
+@import 'themes/deeppurple-amber-theme';
+@import 'themes/pink-bluegrey-theme';
+@import 'themes/purple-green-theme';
+@import 'themes/custom-theme.scss';
+
+//@import 'app/components/contextMenu/contextMenu.component.scss';
+@import 'app/components/bottomSheet/bottomSheet.component.scss';
+@import 'app/components/sorting/sortingDialog/sortingDialog.component.scss';
+@import 'app/pages/components/components.component.scss';
+
+@mixin custom-components-theme($theme) {
+	@include bottom-sheet-theme($theme);
+  @include sorting-dialog-theme($theme);
+  @include components-page-theme($theme);
+  //@include context-menu-theme($theme)
+}
+
+@include angular-material-theme($dark-theme);
+
+.light-theme{
+  @include angular-material-theme($light-theme);
+  @include custom-components-theme($light-theme);
+}
+
+.dark-theme{
+  @include angular-material-theme($dark-theme);
+  @include custom-components-theme($dark-theme);
+}
+
+.indigo-pink-theme{
+  @include angular-material-theme($indigo-pink-theme);
+  @include custom-components-theme($indigo-pink-theme);
+}
+
+.deeppurple-amber-theme{
+  @include angular-material-theme($deeppurple-amber-theme);
+  @include custom-components-theme($deeppurple-amber-theme);
+}
+
+.pink-bluegrey-theme{
+  @include angular-material-theme($pink-bluegrey-theme);
+  @include custom-components-theme($pink-bluegrey-theme);
+}
+
+.purple-green-theme{
+  @include angular-material-theme($purple-green-theme);
+  @include custom-components-theme($purple-green-theme);
+}
+
+.custom-theme{
+  @include angular-material-theme($custom-theme);
+  @include custom-components-theme($custom-theme);
+}

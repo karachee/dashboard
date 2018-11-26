@@ -1,0 +1,88 @@
+<div id="home-view">
+  <mat-card class="dashboard-card">
+
+    <flipper [flip]="flip" [flipType]="flipType" [flipTimes]="flipTimes" [flipSpeed]="(flipSpeedMax - flipSpeed)/10">
+
+      <div front>
+        <div class="header">
+          <div>
+            <button mat-icon-button style="flex:2% 1;" (click)="toggleBottomSheet();">
+              <mat-icon aria-label="history">history</mat-icon>
+            </button>
+          </div>
+          <div>
+            <button mat-icon-button (click)="flip = !flip">
+              <mat-icon aria-label="history">flip_to_back</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="content">
+          <div id="splash-moving-zone">
+            <div id="lion">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div back>
+        <div class="header">
+          <div>
+          </div>
+          <div>
+            <button mat-icon-button (click)="flip = !flip">
+              <mat-icon aria-label="history">flip_to_front</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="flip-settings-container">
+          <div class="flip-settings">
+            <div class="flip-setting flip-type">
+              <span>Flip Type: </span>
+              <mat-radio-group [(ngModel)]="flipType">
+                <mat-radio-button value="flip-x" style="margin-right:15px;">Flip X</mat-radio-button>
+                <mat-radio-button value="flip-y">Flip Y</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <mat-form-field class="flip-setting">
+              <input matInput placeholder="Flip Times" [(ngModel)]="flipTimes" type="number">
+            </mat-form-field>
+
+            <div class="flip-setting">
+              <span style="margin-bottom: 5px">Flip Speed:</span>
+              <div style="display: flex; justify-content: space-between">
+                <span>Slower</span>
+                <mat-slider style="width: 80%"
+                            [min]="flipSpeedMin"
+                            [max]="flipSpeedMax"
+                            [(ngModel)]="flipSpeed">
+                </mat-slider>
+                <span>Faster</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </flipper>
+  </mat-card>
+</div>
+
+<bottom-sheet [isOpen]="bottomSheetOpen" (onClose)="this.bottomSheetClosed($event)">
+  <mat-toolbar color="primary" style="display: flex;justify-content: space-between;">
+    <div>
+      <mat-icon aria-label="history">history</mat-icon>
+      <span style="font-size: 22px;margin-left:15px;">Bottom Sheet</span>
+    </div>
+  </mat-toolbar>
+  <mat-list *ngIf="bottomSheetItems" style="max-height:36vh; overflow: auto;">
+    <div *ngFor="let bottomSheetItem of bottomSheetItems">
+      <mat-list-item style="cursor: pointer;" (click)="bottomSheetItemSelected(bottomSheetItem)">
+        <mat-icon mat-list-icon>note</mat-icon>
+        <h4 mat-line>Name: {{bottomSheetItem.name}}</h4>
+        <h3 mat-line>Value: {{bottomSheetItem.value}}</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+</bottom-sheet>

@@ -1,0 +1,46 @@
+#context-menu-wrapper {
+  position: fixed;
+  border: 1px solid black;
+  border-radius: 5px;
+
+  width: 250px;
+  max-height:50vh;
+  overflow: hidden;
+  z-index: 99999;
+
+  background: white;
+  opacity: .6;
+  display: none;
+
+  &.show {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .context-menu-item {
+    font-size: medium;
+    font-family: "Andale Mono";
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    cursor: pointer;
+    word-break: break-word;
+
+    .context-menu-item-content {
+      display: flex;
+      margin-bottom: 10px;
+
+    }
+
+    .horizontal-line {
+      border: .5px solid #80808029;
+      width: 100%;
+    }
+  }
+
+  .context-menu-item:hover {
+    background: #424242b3 !important;
+    color:white;
+  }
+}

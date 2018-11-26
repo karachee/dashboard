@@ -1,0 +1,64 @@
+@import '~@angular/material/theming';
+
+@mixin components-page-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .components-view {
+
+    display: flex;
+    justify-content: space-between;
+
+    .component-item-card {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+    }
+
+    .flipper-example {
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      background: mat-color($primary);
+      color: mat-color($background, card);
+
+      .flipper-example-text {
+        margin: auto 0;
+        font-size: larger;
+      }
+    }
+
+    .flip-settings-container {
+      display: flex;
+      justify-content: center;
+      height: 33%;
+
+      .flip-settings {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+
+        .flip-setting {
+          margin-bottom: 15%;
+        }
+
+        .flip-type {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    .context-menu-settings{
+      display: flex;
+      flex-direction: column;
+      height:100%;
+      justify-content: space-around;
+    }
+  }
+}

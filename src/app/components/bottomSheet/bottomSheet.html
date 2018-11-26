@@ -1,0 +1,7 @@
+<div id="bottom-sheet" class="overlay">
+  <aside class="bottom-sheet-container" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+    <ng-content></ng-content>
+  </aside>
+  <div (click)="closeBottomSheet()" class="btn-close"><span class="mdi mdi-close"></span>
+    <span class="sr-only">Close</span></div>
+</div>

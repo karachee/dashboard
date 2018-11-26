@@ -1,0 +1,48 @@
+<div id="sorting-dialog-container">
+  <div id="sorting-dialog-content">
+    <div id="sorting-dialog-header">
+      <div>
+        <h3>Sorting</h3>
+        <h4>Add levels to sort by</h4>
+      </div>
+      <div>
+        <button mat-icon-button (click)="clearSort()">
+          <mat-icon aria-label="sort">clear_all</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex">
+      <div id="sorting-keys" class="container" dragula="SORTING" [(dragulaModel)]="sortingKeys">
+        <div class="sorting-item" *ngFor="let sortingKey of sortingKeys">{{ sortingKey.displayValue }}</div>
+      </div>
+
+      <div class="verticle-line"></div>
+
+      <div id="selected-sorting-keys" class="container" dragula="SORTING" [(dragulaModel)]="selectedSortingKeys">
+        <div *ngIf="selectedSortingKeys.length!=0">
+          <div class="sorting-item" *ngFor="let selectedSortingKey of selectedSortingKeys">
+            <div class="selected-sorting-item">
+              <div>{{ selectedSortingKey.displayValue }}</div>
+              <mat-select placeholder="Sort Direction" [(ngModel)]="selectedSortingKey.sortDirection"
+                          style="flex: 25% 0;">
+                <mat-option *ngFor="let sortDirection of sortDirections" [value]="sortDirection">
+                  {{sortDirection}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="selectedSortingKeys.length==0"
+             style="display: flex;justify-content: center;padding: 0 50px;margin-top: 50%;font-style: italic;opacity: .5;">
+          Drag and drop sorting keys here.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sorting-dialog-actions">
+    <button mat-raised-button color="warn" (click)="cancelButtonHandler()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="sortButtonHandler()">Sort</button>
+  </div>
+</div>
