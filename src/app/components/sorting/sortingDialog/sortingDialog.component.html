@@ -20,7 +20,7 @@
       <div class="verticle-line"></div>
 
       <div id="selected-sorting-keys" class="container" dragula="SORTING" [(dragulaModel)]="selectedSortingKeys">
-        <div *ngIf="selectedSortingKeys.length!=0">
+        <div *ngIf="selectedSortingKeys && selectedSortingKeys.length!=0">
           <div class="sorting-item" *ngFor="let selectedSortingKey of selectedSortingKeys">
             <div class="selected-sorting-item">
               <div>{{ selectedSortingKey.displayValue }}</div>
@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="selectedSortingKeys.length==0"
+        <div *ngIf="selectedSortingKeys && selectedSortingKeys.length==0"
              style="display: flex;justify-content: center;padding: 0 50px;margin-top: 50%;font-style: italic;opacity: .5;">
           Drag and drop sorting keys here.
         </div>

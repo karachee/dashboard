@@ -11,6 +11,7 @@ import {Subscription} from "rxjs";
   encapsulation: ViewEncapsulation.None,
 })
 export class SortingDialogComponent {
+  originalSelectedSortingKeys: SortingItem[] = [];
 
   selectedSortingKeys: SortingItem[] = [];
 
@@ -26,7 +27,8 @@ export class SortingDialogComponent {
     if (data && data['sortingKeys']) {
       Object.assign(sortingKeys, data['sortingKeys']);
     }
-    this.selectedSortingKeys = (data && data['selectedSortingKeys']) ? data['selectedSortingKeys'] : null;
+    this.originalSelectedSortingKeys = (data && data['selectedSortingKeys']) ? data['selectedSortingKeys'] : [];
+    this.selectedSortingKeys = this.originalSelectedSortingKeys;
 
     if (sortingKeys) {
       if (this.selectedSortingKeys) {
@@ -66,7 +68,7 @@ export class SortingDialogComponent {
   }
 
   cancelButtonHandler() {
-    this.closeDialog(this.selectedSortingKeys);
+    this.closeDialog(this.originalSelectedSortingKeys);
   }
 
   closeDialog(selectedSortingKeys) {
